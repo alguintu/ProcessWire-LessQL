@@ -1,0 +1,47 @@
+<?php
+
+namespace ProcessWire;
+/**
+ * RedBeanPHP for ProcessWire
+ *
+ * This module is a very light-weight loader for RedBeanPHP ORM.
+ *
+ * @copyright Copyright (c) 2017, Alex Andre' Guintu
+ * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License, version 2
+ *
+ * LessQL the agile PHP ORM alternative (c) Morris Brodersen (mb@morrisbrodersen.de)
+ * Licensed under MIT License.
+ */
+
+class LessQL extends WireData implements Module, ConfigurableModule {
+
+    /**
+     * Initialize the module
+     *
+     * Load and setup the LessQL.
+     */
+    public function init() {
+        require_once(dirname(__FILE__) . '/LessQL/Database.php');
+        require_once(dirname(__FILE__) . '/LessQL/Literal.php');
+        require_once(dirname(__FILE__) . '/LessQL/Result.php');
+        require_once(dirname(__FILE__) . '/LessQL/Row.php');
+
+
+        $dbName = $this->useDefaultDatabase ? $this->config->dbName : $this->databaseName;
+        $dbUser = $this->useDefaultDatabase ? $this->config->dbUser : $this->databaseUser;
+        $dbPass = $this->useDefaultDatabase ? $this->config->dbPass : $this->databasePass;
+
+        $dsn = "mysql:dbname={$dbName}";
+        if ($this->config->dbSocket) {
+            $dsn .= ";unix_socket={$this->config->dbSocket}";
+        } else {
+            $dsn .= ";host={$this->config->dbHost}";
+            if ($this->config->dbPort) $dsn .= ";port={$this->config->dbPort}";
+        }
+        $pdo = new \PDO($dsn, $dbUser, $dbPass);
+		$db = new \LessQL\Database($pdo);
+		if (isset($this->data['dataVariable'])) {
+			$this->wire($this->data['dataVariable'], $db);
+		}
+	}
+}
