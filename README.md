@@ -10,7 +10,7 @@ using your own database. Module config contains some settings,
 and the module exposes a $lessQL or wire('lessQL') variable to access the database
 methods.
 
-## LessQL ORM Alternative of PHP
+## LessQL ORM Alternative for PHP
 
 LessQL is heavily inspired by NotORM which presents a novel, intuitive API to SQL
 databases. Combined with an efficient implementation, its concepts are very unique
