@@ -2,9 +2,9 @@
 
 namespace ProcessWire;
 /**
- * RedBeanPHP for ProcessWire
+ * LessQL for ProcessWire
  *
- * This module is a very light-weight loader for RedBeanPHP ORM.
+ * This module is a very light-weight loader for LessQL.
  *
  * @copyright Copyright (c) 2017, Alex Andre' Guintu
  * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License, version 2
